@@ -16,10 +16,10 @@
 # compared to the original file.
 format_diff() {
 	local filepath="$1"
-	local_format="$(/usr/bin/clang-format-10 -n --Werror --style=file --fallback-style=LLVM -i "${filepath}")"
+	local_format="$(/usr/bin/clang-format-10 -i -n --Werror --style=file --fallback-style=LLVM "${filepath}")"
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
-		echo "$local_format" >&2
+		echo "$local_format" #>&2
 		exit_code=1
 		return "${format_status}"
 	fi
